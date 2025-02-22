@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}  # Your Gmail address
           password: ${{ secrets.GMAIL_PASSWORD }}  # Use an App Password, not raw Gmail password
           subject: "Cypress Test Report - $(date +'%Y-%m-%d %H:%M:%S')"
-          from: ${{ secrets.GMAIL_USERNAME }}  # Sender email (must match authenticated email)
+          from:  arunram.developer@gmail.com  # Sender email (must match authenticated email)
           to: ${{ secrets.GMAIL_RECIPIENT }}  # Recipient email address
           body: "Please find the attached Cypress test report."
           attachments: cypress/reports/index.html
