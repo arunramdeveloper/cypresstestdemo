@@ -73,3 +73,4 @@ jobs:
           from: ${{ secrets.GMAIL_USERNAME }}  # Sender email address
           to: ${{ secrets.GMAIL_RECIPIENT }}  # Recipient email address
           body: "Hi, this is an automated Cypress test report."
+          attachments: cypress/reports/index.html
