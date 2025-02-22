@@ -1,54 +1,30 @@
-name: Cypress E2E Tests
+name: Send Email Notification
 
 on:
   push:
     branches:
       - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
-  schedule:
-    - cron: "0 * * * *"  # Run every 1 hour
 
 jobs:
-  cypress-run:
+  send-email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Debug Secrets (Without Exposing Password)
+        run: |
+          echo "✅ Debugging Email Configuration..."
+          echo "GMAIL_USERNAME: ${{ secrets.GMAIL_USERNAME }}"
+          echo "GMAIL_RECIPIENT: ${{ secrets.GMAIL_RECIPIENT }}"
+        shell: bash
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Create Reports Directory
-        run: mkdir -p cypress/reports
-
-      - name: Run Cypress Tests
-        run: npx cypress run --reporter mochawesome
-
-      - name: Upload Cypress Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-test-report
-          path: cypress/reports/index.html
-
-      - name: Send Email with Report
+      - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Cypress Test Report - $(date +'%Y-%m-%d %H:%M:%S')"
-          from: ${{ secrets.GMAIL_USERNAME }}
-          to: ${{ secrets.GMAIL_RECIPIENT }}  # Make sure this is set!
-          body: "Please find the attached Cypress test report."
-          attachments: cypress/reports/index.html
+          subject: "GitHub Actions Email Notification"
+          to: ${{ secrets.GMAIL_RECIPIENT }}
+          secure: true
+          body: "Hi, this is a GitHub Actions email notification."
