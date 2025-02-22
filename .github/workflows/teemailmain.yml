@@ -1,0 +1,31 @@
+name: Debug Email Configuration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  debug-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if Secrets Are Set
+        run: |
+          if [ -z "${{ secrets.GMAIL_USERNAME }}" ]; then
+            echo "❌ GMAIL_USERNAME is NOT set!"
+          else
+            echo "✅ GMAIL_USERNAME is set!"
+          fi
+
+          if [ -z "${{ secrets.GMAIL_RECIPIENT }}" ]; then
+            echo "❌ GMAIL_RECIPIENT is NOT set!"
+          else
+            echo "✅ GMAIL_RECIPIENT is set!"
+          fi
+
+          if [ -z "${{ secrets.GMAIL_PASSWORD }}" ]; then
+            echo "❌ GMAIL_PASSWORD is NOT set!"
+          else
+            echo "✅ GMAIL_PASSWORD is set!"
+          fi
