@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
           subject: "Cypress Test Report - $(date +'%Y-%m-%d %H:%M:%S')"
-          from: ${{ secrets.GMAIL_USERNAME }}
+          from: arunram.developer@gmail.com
           to: ${{ secrets.GMAIL_RECIPIENT }}  # Make sure this is set!
           body: "Please find the attached Cypress test report."
           attachments: cypress/reports/index.html
